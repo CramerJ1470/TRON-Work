@@ -1,5 +1,5 @@
 
-
+let tempWord= {};
 
 // ************************** BUILD A GRID WITH BLANK SPACES *********************************//
 
@@ -206,7 +206,7 @@ for (let checkit = 0; checkit < length; checkit++) {
 }
 
 doesItFitShort(205,3);
-doesItFitShort(205,2)
+
 
 
 function checkOppositeDir(gridLoc, origdir,length1) {
@@ -237,8 +237,8 @@ function checkOppositeDir(gridLoc, origdir,length1) {
             gridLoc = gridLoc + getDirectionNum(reverseDir);
             console.log("step gridLoc:",gridLoc);
     
-            if (grid[gridLoc] !== undefined) {console.log("partial check: ",gridLoc); let doesntFitReverse=true;}
-        if (grid[gridLoc] === undefined) {let doesntFitReverse= false;console.log("it doesnt work");} 
+            if (grid[gridLoc] !== undefined) {console.log("partial check: ",gridLoc); let doesntFitReverse=true; checkLetterInGrid(word,checkitReverse,gridLoc);}
+        if (grid[gridLoc] === undefined) {let doesntFitReverse= false;console.log("it doesnt work");return false;} 
        if (checkitReverse === length1-1) {
             console.log("first way works ,next letter"); 
             return true;
@@ -247,9 +247,13 @@ function checkOppositeDir(gridLoc, origdir,length1) {
 
 }
 
+function checkLetterInGrid(word,indexOfLet,gridLoc) {
+        if (grid[gridLoc] === word[indexOfLet] || grid[gridLoc]=== " ") { console.log("letter at ",gridLoc," matches word letter, next Letter please!")
+            tempWord["indexOfLet"] =gridLoc; grid[gridLoc] = word[indexOfLet]; return true;
 
+        } else {console.log("letter at ",gridLoc, " does not match word letter. No good next Loc"); return false;}
 
-
+    }
 
 
 
