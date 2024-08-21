@@ -113,7 +113,30 @@ function getNewLoc() {
     return getCheckArr(newLocation);
 }
 
-
+function getCheckArr(newLocation) {
+    if (newLocation === 101) {
+        console.log("topleft")
+        return topleft;
+    } else if (newLocation === 1515) {
+        return rightbottom;
+    }else if (newLocation >101 && newLocation < 115) {
+        console.log("topmiddle");
+        return topmiddle;
+    } else if (newLocation === 1501) {
+        return bottomleft;
+    } else if (newLocation ===115) {
+        return righttop;
+    } else if ((newLocation-1)%100 ===0)    {
+        console.log("leftmiddle")
+        return leftmiddle;
+    } else if ( (newLocation-15)%10 ===0 && (newLocation > 115 || newLocation < 1515)) {
+        return rightmiddle;
+    } else if (newLocation > 1501 && newLocation < 1515) {
+        return bottommiddle;
+    } else {
+        return middle;
+    }
+}
 
 console.log(getNewLoc());
 
