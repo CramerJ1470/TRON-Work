@@ -113,30 +113,7 @@ function getNewLoc() {
     return getCheckArr(newLocation);
 }
 
-function getCheckArr(newLocation) {
-    if (newLocation === 101) {
-        console.log("topleft")
-        return topleft;
-    } else if (newLocation === 1515) {
-        return rightbottom;
-    }else if (newLocation >101 && newLocation < 115) {
-        console.log("topmiddle");
-        return topmiddle;
-    } else if (newLocation === 1501) {
-        return bottomleft;
-    } else if (newLocation ===115) {
-        return righttop;
-    } else if ((newLocation-1)%100 ===0)    {
-        console.log("leftmiddle")
-        return leftmiddle;
-    } else if ( (newLocation-15)%10 ===0 && (newLocation > 115 || newLocation < 1515)) {
-        return rightmiddle;
-    } else if (newLocation > 1501 && newLocation < 1515) {
-        return bottommiddle;
-    } else {
-        return middle;
-    }
-}
+
 
 console.log(getNewLoc());
 
@@ -194,12 +171,12 @@ let doesntFit;
 for (let checkit = 0; checkit < length; checkit++) {
     //*********************fix loop */
         
-        gridLoc = gridLoc + getDirectionNum(directions[checkit]);
+        gridLoc = gridLoc + getDirectionNum(directions[directs]);
 
         if (grid[gridLoc] !== undefined) {console.log("partial check: ",gridLoc); let doesntFit=true;}
     if (grid[gridLoc] === undefined) {let doesntFit= false;console.log("it doesnt work");} 
    if (checkit === length-1) {
-        console.log("first way works ,next letter"); if (checkOppositeDir(gridLoc, directions[checkit],length-checkit)=== true) {console.log("second way work");return;} else if (checkOppositeDir(gridLoc, directions[checkit])=== false) {console.log("second way does not work");} ;
+        console.log("first way works ,next letter"); let altStart = gridLoc; if (checkOppositeDir(gridLoc, directions[directs],word.length)=== true) {console.log("second way work");return;} else if (checkOppositeDir(gridLoc, directions[checkit])=== false) {console.log("second way does not work");return;} ;
    }
 }
 }
@@ -235,11 +212,13 @@ function checkOppositeDir(gridLoc, origdir,length1) {
         
             
             gridLoc = gridLoc + getDirectionNum(reverseDir);
+            console.log("step gridLoc:",gridLoc);
     
             if (grid[gridLoc] !== undefined) {console.log("partial check: ",gridLoc); let doesntFitReverse=true;}
         if (grid[gridLoc] === undefined) {let doesntFitReverse= false;console.log("it doesnt work");} 
        if (checkitReverse === length1-1) {
             console.log("first way works ,next letter"); 
+            return true;
        }
     }
 
