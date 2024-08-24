@@ -39,7 +39,7 @@ let grid={};
 
 
 // ********************** SPLITING THE GRID ARRAY INTO LINES TO HELP RENDER IN REACT APP*********************//
-
+function splitToShow(grid) {
 let newline = [];
 let totalLines=[];
 let len = Object.values(grid).length;
@@ -73,8 +73,11 @@ for (let b = 0; b < len+1;b++) {
 }
     
 }
+// console.log("totalline",totalLines);
+}
 
-//console.log("totalline",totalLines);
+
+
 
 
 // ********************************** REORDER SEARCH WORDS **********************************//
@@ -83,13 +86,15 @@ let searchWords = ["BEET","BEIGE","BEING","BENIGN","EIGHT","ENGINE","HINTING","N
 
 searchWords.sort((a, b) => b.length - a.length);
 
-console.log(`searchWords:`,searchWords);
+// console.log(`searchWords:`,searchWords);
 
 
 // ********** CHECK LOCATION TO GET ALLOWABLE DIRECTION FOR GRAPH THEORY ********************//
 
 
 console.log("********** CHECK LOCATION TO GET ALLOWABLE DIRECTION FOR GRAPH THEORY ********************")
+
+
 const topleft= ["e","f","g"];
 const topmiddle = ["a","e","f","g","h"];
 const righttop =["a","g","h"];
@@ -156,7 +161,7 @@ function getRandomGridLoc(len) {
 console.log("random location: ",getRandomGridLoc(randomLen));
 
 // **************************CHECK CHARACTER IN GRID BASED ON RANDOM LOCATION **********************//
-
+function checkCharaterInGrid(newLoc) {
 console.log("**************************CHECK CHARACTER IN GRID BASED ON RANDOM LOCATION **********************")
 let wordLetBelow;
 let wordLetAbove;
@@ -199,11 +204,12 @@ for (let checkit = 0; checkit < length; checkit++) {
         if (grid[gridLoc] !== undefined) {console.log("partial check: ",gridLoc); let doesntFit=true;}
     if (grid[gridLoc] === undefined) {let doesntFit= false;console.log("it doesnt work");} 
    if (checkit === length-1) {
-        console.log("first way works ,next letter"); let altStart = gridLoc; if (checkOppositeDir(gridLoc, directions[directs],word.length)=== true) {console.log("second way work");return;} else if (checkOppositeDir(gridLoc, directions[checkit])=== false) {console.log("second way does not work");return;} ;
+        console.log("first way works ,next letter"); let altStart = gridLoc; if (checkOppositeDir(gridLoc, directions[directs],word.length)=== true) {console.log("second way work");addWordToGrid(tempWord);return;} else if (checkOppositeDir(gridLoc, directions[checkit])=== false) {console.log("second way does not work");return;} ;
    }
 }
 }
 }
+
 
 doesItFitShort(205,3);
 
@@ -248,13 +254,25 @@ function checkOppositeDir(gridLoc, origdir,length1) {
 }
 
 function checkLetterInGrid(word,indexOfLet,gridLoc) {
-        if (grid[gridLoc] === word[indexOfLet] || grid[gridLoc]=== " ") { console.log("letter at ",gridLoc," matches word letter, next Letter please!")
-            tempWord["indexOfLet"] =gridLoc; grid[gridLoc] = word[indexOfLet]; return true;
+        if (grid[gridLoc] === word[indexOfLet] || grid[gridLoc]=== "  ") { console.log("letter at ",gridLoc," matches word letter, next Letter please!");
+            let numGridLoc =  Number(gridLoc); 
+            grid[gridLoc] = word[indexOfLet];  tempWord[numGridLoc] =grid[gridLoc];
 
         } else {console.log("letter at ",gridLoc, " does not match word letter. No good next Loc"); return false;}
 
     }
 
+
+//****************************** ADD TEMPWORD TO GRID**************************/    
+function addWordToGrid(tempWord) {
+    
+    
+      let numbers = Object.keys(tempWord);
+      let values = Object.values(tempWord);
+      console.log("tempWordLength:",numbers,values);
+      for (let aa = 0; aa < numbers.length; aa++) {grid[Number(numbers[aa])] = values[aa];};
+      console.log(grid);
+}
 
 
 // ******************** REMOVE A GRID LOCATION FROM RANDOM LOCATIONS ONCE SELECTED **********//
